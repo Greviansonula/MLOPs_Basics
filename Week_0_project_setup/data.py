@@ -12,6 +12,7 @@ class DataModule(pl.LightningDataModule):
         
         self.batch_size = batch_size
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        print("init data")
         
     def prepare_data(self):
         cola_dataset = load_dataset("glue", "cola")
@@ -28,6 +29,7 @@ class DataModule(pl.LightningDataModule):
         
     def setup(self, stage=None):
         # set up only relevant datasets when state is specified
+        print("enter setup")
         if stage == "fit" or stage is None:
             self.train_data = self.train_data.map(self.tokenize_data, batched=True)
             self.train_data.set_format(

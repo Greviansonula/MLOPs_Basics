@@ -13,6 +13,7 @@ class ColaModel(pl.LightningModule):
         self.bert = AutoModel.from_pretrained(model_name)
         self.W = nn.Linear(self.bert.config.hidden_size, 2)
         self.num_classes = 2
+        print("init model")
         
     def forward(self, input_ids, attention_mask):
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)

@@ -7,6 +7,7 @@ from data import DataModule
 from model import ColaModel
 
 def main():
+    print("init main")
     cola_data = DataModule()
     cola_model = ColaModel()
     
@@ -16,11 +17,11 @@ def main():
     early_stopping_callback = EarlyStopping(
         monitor="val_loss", patience=3, verbsoe=True, mode="min"
     )
-    
+    print("init trian")
     trainer = pl.Trainer(
         default_root_dir="logs",
         gpus=(1 if torch.cuda.is_available() else 0),
-        max_epoch=5,
+        max_epoch=1,
         fast_dev_run=False,
         logger=pl.loggers.TensorBoardLogger("logs/", name="cola", version=1),
         callback=[checkpoint_callback, early_stopping_callback],
