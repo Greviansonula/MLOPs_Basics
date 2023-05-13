@@ -43,12 +43,12 @@ class DataModule(pl.LightningDataModule):
             
     def train_dataloader(self):
         return torch.utils.data.DataLoader(
-            self.train_data, batch_size=self.batch_size, shuffle=True
+            self.train_data, batch_size=self.batch_size, shuffle=True, num_workers=16
         )
         
     def validation_dataloader(self):
         return torch.utils.data.DataLoader(
-            self.train_data, batch_size=self.batch_size, shuffle=True
+            self.train_data, batch_size=self.batch_size, shuffle=True, num_workers=16
         )
         
         
