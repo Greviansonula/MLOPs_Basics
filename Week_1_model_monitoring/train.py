@@ -7,7 +7,7 @@ from pytorch_lightning.loggers import WandbLogger
 from data import DataModule
 from model import ColaModel
 
-wandb_logger = WandbLogger(project="MLOPs Basics")
+wandb_logger = WandbLogger(project="MLOPs Basics", log_model=True)
 
 def main():
     print("init main")
@@ -27,6 +27,7 @@ def main():
         logger=wandb_logger,
         callbacks=[checkpoint_callback],
     )
+    # trainer.fit(cola_model, cola_data)
     trainer.fit(cola_model, cola_data)
     
     
