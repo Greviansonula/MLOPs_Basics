@@ -1,0 +1,117 @@
+{
+    "os": "Linux-6.1.27-060127-generic-x86_64-with-glibc2.35",
+    "python": "3.11.1",
+    "heartbeatAt": "2023-05-13T19:36:12.234699",
+    "startedAt": "2023-05-13T19:36:11.583588",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/workspace/MLOPs_Basics/Week_1_model_monitoring/train.py",
+    "codePath": "Week_1_model_monitoring/train.py",
+    "git": {
+        "remote": "https://github.com/Greviansonula/MLOPs_Basics.git",
+        "commit": "fd86e6efecab66346828dea00824a65295a1155a"
+    },
+    "email": "greviansonula@gmail.com",
+    "root": "/workspace/MLOPs_Basics",
+    "host": "greviansonu-mlopsbasics-daqsx2dx2wm",
+    "username": "gitpod",
+    "executable": "/home/gitpod/.pyenv/versions/3.11.1/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 2450.0,
+        "min": 0.0,
+        "max": 0.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2450.0,
+            "min": 0.0,
+            "max": 0.0
+        }
+    ],
+    "disk": {
+        "total": 1399.9760780334473,
+        "used": 456.1585350036621
+    },
+    "memory": {
+        "total": 62.79146194458008
+    }
+}

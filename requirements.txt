@@ -2,3 +2,8 @@ pytorch-lightning
 datasets
 transformers
 scikit-learn
+tensorboard
+wandb
+torchmetrics
+matplotlib
+seaborn
