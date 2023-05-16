@@ -5,6 +5,7 @@ import torch.nn.functional as F
 from transformers import AutoModelForSequenceClassification
 from sklearn.metrics import accuracy_score
 import torchmetrics
+from sklearn.metrics import confusion_matrix
 
 class ColaModel(pl.LightningModule):
     def __init__(self, model_name="google/bert_uncased_L-2_H-128_A-2", lr=1e-2):
@@ -12,7 +13,6 @@ class ColaModel(pl.LightningModule):
         self.save_hyperparameters()
         
         self.bert = AutoModelForSequenceClassification.from_pretrained(model_name)
-        self.W = nn.Linear(self.bert.config.hidden_size, 2)
         self.num_classes = 2
         
         self.train_accuracy_metric = torchmetrics.Accuracy(task="binary")
@@ -71,6 +71,14 @@ class ColaModel(pl.LightningModule):
         self.log("valid/recall_micro", recall_micro, prog_bar=True, on_epoch=True)
         self.log("valid/f1", f1, prog_bar=True, on_epoch=True)
         return {"labels": labels, "logits": outputs.logits}
+
+    def on_validation_epoch_end(self):
+        labels = torch.cat([x["labels"] for x in self.validation_step_outputs])
+        logits = torch.cat([x["logits"] for x in self.validation_step_outputs])
+        preds = torch.argmax(logits, 1)
+
+        cm = confusion_matrix(labels.numpy(), preds.numpy())
+
         
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=self.hparams["lr"])

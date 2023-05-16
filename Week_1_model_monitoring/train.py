@@ -15,10 +15,10 @@ def main():
     cola_model = ColaModel()
     
     checkpoint_callback = ModelCheckpoint(
-        dirpath="./models", monitor="train_loss", mode="min"
+        dirpath="./models", monitor="valid/loss", mode="min"
     )
     early_stopping_callback = EarlyStopping(
-        monitor="train_loss", patience=3, verbose=True, mode="min"
+        monitor="valid/loss", patience=3, verbose=True, mode="min"
     )
     print("init trian")
     trainer = pl.Trainer(
@@ -26,6 +26,7 @@ def main():
         max_epochs=2,
         logger=wandb_logger,
         callbacks=[checkpoint_callback],
+        check_val_every_n_epoch=1
     )
     # trainer.fit(cola_model, cola_data)
     trainer.fit(cola_model, cola_data)
