@@ -6,6 +6,7 @@ from transformers import AutoModelForSequenceClassification
 from sklearn.metrics import accuracy_score
 import torchmetrics
 from sklearn.metrics import confusion_matrix
+import wandb
 
 class ColaModel(pl.LightningModule):
     def __init__(self, model_name="google/bert_uncased_L-2_H-128_A-2", lr=1e-2):
@@ -27,6 +28,8 @@ class ColaModel(pl.LightningModule):
 
         self.precision_micro_metric = torchmetrics.Precision(task="binary", average="micro")
         self.recall_micro_metric = torchmetrics.Recall(task="binary", average="micro")
+
+        self.validation_step_outputs = []
 
         
     def forward(self, input_ids, attention_mask, labels=None):
@@ -52,6 +55,7 @@ class ColaModel(pl.LightningModule):
         outputs = self.forward(
             batch["input_ids"], batch["attention_mask"], labels=batch["label"]
         )
+        self.validation_step_outputs.append({"labels": labels, "logits": outputs.logits})
         preds = torch.argmax(outputs.logits, 1)
 
         # Metrics
@@ -72,12 +76,22 @@ class ColaModel(pl.LightningModule):
         self.log("valid/f1", f1, prog_bar=True, on_epoch=True)
         return {"labels": labels, "logits": outputs.logits}
 
-    # def on_validation_epoch_end(self):
-    #     labels = torch.cat([x["labels"] for x in self.validation_step_outputs])
-    #     logits = torch.cat([x["logits"] for x in self.validation_step_outputs])
-    #     preds = torch.argmax(logits, 1)
+    def on_validation_epoch_end(self):
+        print(self.validation_step_outputs)
+        labels = torch.cat([x["labels"] for x in self.validation_step_outputs])
+        logits = torch.cat([x["logits"] for x in self.validation_step_outputs])
+        preds = torch.argmax(logits, 1)
 
-    #     cm = confusion_matrix(labels.numpy(), preds.numpy())
+        cm = confusion_matrix(labels.numpy(), preds.numpy())
+
+        # 1. Using wandb to plot conf matrix
+        self.logger.experiment.log(
+            {
+                "conf": wandb.plot.confusion_matrix(
+                    probs=logits.numpy(), y_true=labels.numpy()
+                )
+            }
+        )
 
         
     def configure_optimizers(self):

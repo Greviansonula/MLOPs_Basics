@@ -58,7 +58,7 @@ def main():
     print("init trian")
     trainer = pl.Trainer(
         accelerator='gpu' if torch.cuda.is_available() else 'cpu',
-        max_epochs=5,
+        max_epochs=1,
         logger=wandb_logger,
         callbacks=[checkpoint_callback, SampleVisualisationLogger(cola_data)],
         log_every_n_steps=10,
