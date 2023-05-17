@@ -20,25 +20,27 @@ class DataModule(pl.LightningDataModule):
         self.val_data = cola_dataset['validation'].shuffle().select(range(100))
         
     def tokenize_data(self, example):
-        return self.tokenizer(
+        tokenized_input = self.tokenizer(
             example['sentence'],
             truncation=True,
             padding='max_length',
             max_length=512,
         )
+        tokenized_input['sentence'] = example['sentence']
+
+        return tokenized_input
         
     def setup(self, stage=None):
         # set up only relevant datasets when state is specified
-        print("enter setup")
         if stage == "fit" or stage is None:
             self.train_data = self.train_data.map(self.tokenize_data, batched=True)
             self.train_data.set_format(
-                type="torch", columns=["input_ids", "attention_mask", "label"]
+                type="torch", columns=["sentence", "input_ids", "attention_mask", "label"]
             )
             
             self.val_data = self.val_data.map(self.tokenize_data, batched=True)
             self.val_data.set_format(
-                type="torch", columns=["input_ids", "attention_mask", "label"]
+                type="torch", columns=["sentence", "input_ids", "attention_mask", "label"]
             )
             
     def train_dataloader(self):
@@ -57,3 +59,4 @@ if __name__ == "__main__":
     data_model.prepare_data()
     data_model.setup()
     print(next(iter(data_model.train_dataloader()))["input_ids"].shape)
+    print(next(iter(data_model.train_dataloader()))["sentence"])

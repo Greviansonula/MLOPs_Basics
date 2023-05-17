@@ -72,12 +72,12 @@ class ColaModel(pl.LightningModule):
         self.log("valid/f1", f1, prog_bar=True, on_epoch=True)
         return {"labels": labels, "logits": outputs.logits}
 
-    def on_validation_epoch_end(self):
-        labels = torch.cat([x["labels"] for x in self.validation_step_outputs])
-        logits = torch.cat([x["logits"] for x in self.validation_step_outputs])
-        preds = torch.argmax(logits, 1)
+    # def on_validation_epoch_end(self):
+    #     labels = torch.cat([x["labels"] for x in self.validation_step_outputs])
+    #     logits = torch.cat([x["logits"] for x in self.validation_step_outputs])
+    #     preds = torch.argmax(logits, 1)
 
-        cm = confusion_matrix(labels.numpy(), preds.numpy())
+    #     cm = confusion_matrix(labels.numpy(), preds.numpy())
 
         
     def configure_optimizers(self):
