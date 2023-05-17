@@ -89,13 +89,13 @@ class ColaModel(pl.LightningModule):
         cm = confusion_matrix(labels.numpy(), preds.numpy())
 
         # 1. Using wandb to plot conf matrix
-        self.logger.experiment.log(
-            {
-                "conf": wandb.plot.confusion_matrix(
-                    probs=logits.numpy(), y_true=labels.numpy()
-                )
-            }
-        )
+        # self.logger.experiment.log(
+        #     {
+        #         "conf": wandb.plot.confusion_matrix(
+        #             probs=logits.numpy(), y_true=labels.numpy()
+        #         )
+        #     }
+        # )
 
         # 2. Using scikit learn library
         # wandb.log(
@@ -105,24 +105,24 @@ class ColaModel(pl.LightningModule):
         # )
 
         # 3. Using Seaborn library
-        # data = confusion_matrix(labels.numpy(), preds.numpy())
-        # df_cm = DataFrame(data, columns=np.unique(labels), index=np.unique(labels))
-        # df_cm.index.name = "Actual"
-        # df_cm.columns.name = "Predicted"
-        # plt.figure(figsize=(7, 4))
-        # plot = sns.heatmap(
-        #     df_cm, cmap="Blues", annot=True, annot_kws={"size": 16}
-        # )
+        data = confusion_matrix(labels.numpy(), preds.numpy())
+        df_cm = DataFrame(data, columns=np.unique(labels), index=np.unique(labels))
+        df_cm.index.name = "Actual"
+        df_cm.columns.name = "Predicted"
+        plt.figure(figsize=(7, 4))
+        plot = sns.heatmap(
+            df_cm, cmap="Blues", annot=True, annot_kws={"size": 16}
+        )
 
-        # self.logger.experiment.log(
-        #     {
-        #         "Confusion Matrix": wandb.Image(plot)
-        #     }
-        # )
+        self.logger.experiment.log(
+            {
+                "Confusion Matrix": wandb.Image(plot)
+            }
+        )
 
-        # self.logger.experiment.log(
-        #     {"roc": wandb.plot.roc_curve(labels.numpy(), logits.numpy())}
-        # )
+        self.logger.experiment.log(
+            {"roc": wandb.plot.roc_curve(labels.numpy(), logits.numpy())}
+        )
         
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=self.hparams["lr"])
