@@ -7,3 +7,4 @@ wandb
 torchmetrics
 matplotlib
 seaborn
+hydra_colorlog
