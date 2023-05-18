@@ -6,6 +6,9 @@ from pytorch_lightning.loggers import WandbLogger
 from pandas import DataFrame
 import wandb
 
+import hydra
+from omegaconf import OmegaConf
+
 from data import DataModule
 from model import ColaModel
 
@@ -44,8 +47,9 @@ class SampleVisualisationLogger(pl.Callback):
             }
         )
 
-def main():
-    print("init main")
+@hydra.main(config_path="./configs", config_name="config")
+def main(cfg):
+    print(OmegaConf.to_yaml(cfg))
     cola_data = DataModule()
     cola_model = ColaModel()
     
