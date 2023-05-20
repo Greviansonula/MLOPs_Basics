@@ -8,3 +8,6 @@ torchmetrics
 matplotlib
 seaborn
 hydra_colorlog
+dvc
+dvc_gdrive
+dvc_s3
