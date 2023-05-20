@@ -66,10 +66,11 @@ def main(cfg):
     )
     cola_model = ColaModel(cfg.model.name, cfg.training.lr)
 
+    root_dir = hydra.utils.get_original_cwd()
     checkpoint_callback = ModelCheckpoint(
-        dirpath="./models",
-        filename="./best-checkpoint.ckpt",
-        monitor="valid/loss",
+        dirpath=f"{root_dir}/models", 
+        filename="best-checkpoint",
+        monitor="valid/loss", 
         mode="min"
     )
     early_stopping_callback = EarlyStopping(
@@ -81,7 +82,7 @@ def main(cfg):
         accelerator='gpu' if torch.cuda.is_available() else 'cpu',
         max_epochs=1,
         logger=wandb_logger,
-        callbacks=[checkpoint_callback, SampleVisualisationLogger(cola_data)],
+        callbacks=[checkpoint_callback, SampleVisualisationLogger(cola_data), early_stopping_callback],
         log_every_n_steps=cfg.training.log_every_n_steps,
         deterministic=cfg.training.deterministic,
         limit_train_batches=cfg.training.limit_train_batches,
