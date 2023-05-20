@@ -17,6 +17,7 @@ from model import ColaModel
 
 logger = logging.getLogger(__name__)
 
+
 class SampleVisualisationLogger(pl.Callback):
     def __init__(self, datamodule):
         super().__init__()
@@ -28,14 +29,15 @@ class SampleVisualisationLogger(pl.Callback):
         sentences = val_batch["sentence"]
 
         # get the predictions
-        outputs = pl_module(val_batch["input_ids"], val_batch["attention_mask"])
+        outputs = pl_module(val_batch["input_ids"],
+                            val_batch["attention_mask"])
         preds = torch.argmax(outputs.logits, 1)
         labels = val_batch["label"]
 
         # predicted and labelled data
         df = DataFrame(
             {
-                "Sentence":sentences, "Label": labels.numpy(), "Predicted": preds.numpy()
+                "Sentence": sentences, "Label": labels.numpy(), "Predicted": preds.numpy()
             }
         )
 
@@ -50,6 +52,7 @@ class SampleVisualisationLogger(pl.Callback):
             }
         )
 
+
 @hydra.main(config_path="./configs", config_name="config")
 def main(cfg):
     logger.info(OmegaConf.to_yaml(cfg, resolve=True))
@@ -62,17 +65,18 @@ def main(cfg):
         cfg.model.tokenizer, cfg.processing.batch_size, cfg.processing.max_length
     )
     cola_model = ColaModel(cfg.model.name, cfg.training.lr)
-    
+
     checkpoint_callback = ModelCheckpoint(
-        dirpath="./models", 
+        dirpath="./models",
         filename="./best-checkpoint.ckpt",
-        monitor="valid/loss", 
+        monitor="valid/loss",
         mode="min"
     )
     early_stopping_callback = EarlyStopping(
         monitor="valid/loss", patience=3, verbose=True, mode="min"
     )
-    wandb_logger = WandbLogger(project="MLOPs Basics", entity="Greviansonula", log_model=True)
+    wandb_logger = WandbLogger(
+        project="MLOPs Basics", entity="Greviansonula", log_model=True)
     trainer = pl.Trainer(
         accelerator='gpu' if torch.cuda.is_available() else 'cpu',
         max_epochs=1,
@@ -85,7 +89,7 @@ def main(cfg):
     )
     # trainer.fit(cola_model, cola_data)
     trainer.fit(cola_model, cola_data)
-    
-    
+
+
 if __name__ == "__main__":
     main()
