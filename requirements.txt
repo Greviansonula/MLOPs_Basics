@@ -13,3 +13,4 @@ dvc_gdrive
 dvc_s3
 fastapi
 uvicorn
+onnxruntime
