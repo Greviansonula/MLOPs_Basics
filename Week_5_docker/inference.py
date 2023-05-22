@@ -1,6 +1,7 @@
 import torch
 from model import ColaModel
 from data import DataModule
+from utils import timing
 
 class ColaPredictor:
     def __init__(self, model_path):
@@ -11,7 +12,8 @@ class ColaPredictor:
         self.preprocessor = DataModule()
         self.softmax = torch.nn.Softmax(dim=0)
         self.labels = ["unacceptable", "acceptable"]
-        
+    
+    @timing
     def predict(self, text):
         inference_sample = {"sentence": text}
         processed = self.preprocessor.tokenize_data(inference_sample)
@@ -28,5 +30,8 @@ class ColaPredictor:
     
 if __name__ == "__main__":
     sentence = "Kiswahili ni lugha ya mama"
-    predictor = ColaPredictor("./models/epoch=0-step=268.ckpt")
+    predictor = ColaPredictor("./models/best-checkpoint.ckpt")
     print(predictor.predict(sentence))
+    sentences = ["The boy is sitting on a bench"] * 10
+    for sentence in sentences:
+        predictor.predict(sentence)

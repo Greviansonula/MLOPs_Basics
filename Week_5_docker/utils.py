@@ -14,7 +14,7 @@ def timing(f):
         start = time.time()
         result = f(*args, **kwargs)
         end = time.time()
-        print("Function: %r took: %2.5f sec % "(f.__name__, end - start))
+        print("function: %r took: %2.5f sec" % (f.__name__, end - start))
         
     return wrapper
     

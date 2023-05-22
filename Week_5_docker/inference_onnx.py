@@ -14,22 +14,22 @@ class ColaONNXPredictor:
         self.processor = DataModule()
         self.labels = ["unacceptable", "acceptable"]
         
-        @timing
-        def predict(self, text):
-            inference_sample = {"sentene": text}
-            processed = self.processor.tokenize_data(inference_sample)
-            
-            ort_inputs = {
-                "input_ids": np.expand_dims(processed["input_ids"], axis=0),
-                "attention_mask": np.expand_dims(processed["attention_mask"], axis=0)
-            }
-            
-            ort_outs = self.ort_session.run(None, ort_inputs)
-            scores = softmax(ort_outs[0])[0]
-            predictions = []
-            for score, label in zip(scores, self.labels):
-                predictions.append({"label": label, "score": score})
-            return predictions
+    @timing
+    def predict(self, text):
+        inference_sample = {"sentence": text}
+        processed = self.processor.tokenize_data(inference_sample)
+        
+        ort_inputs = {
+            "input_ids": np.expand_dims(processed["input_ids"], axis=0),
+            "attention_mask": np.expand_dims(processed["attention_mask"], axis=0)
+        }
+        
+        ort_outs = self.ort_session.run(None, ort_inputs)
+        scores = softmax(ort_outs[0])[0]
+        predictions = []
+        for score, label in zip(scores, self.labels):
+            predictions.append({"label": label, "score": score})
+        return predictions
         
 if __name__ == "__main__":
     sentence = "The boy is sitting on a bench"
