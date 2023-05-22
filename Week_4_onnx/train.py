@@ -53,7 +53,7 @@ class SampleVisualisationLogger(pl.Callback):
         )
 
 
-@hydra.main(config_path="./configs", config_name="config", version="1.1")
+@hydra.main(config_path="./configs", config_name="config")
 def main(cfg):
     logger.info(OmegaConf.to_yaml(cfg, resolve=True))
     logger.info(f"Using the model: {cfg.model.name}")
