@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Install requirements
 RUN pip install "dvc[gdrive]"
+RUN pip install 'dvc[s3]'
 RUN pip install -r requirements.txt
 
 # Initialize dvc
