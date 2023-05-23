@@ -3,13 +3,20 @@ FROM huggingface/transformers-pytorch-cpu:latest
 COPY  ./ /app
 WORKDIR /app
 
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+
+# aws credentials configurations
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+
+
 # Install requirements
-RUN pip install "dvc[gdrive]"
 RUN pip install 'dvc[s3]'
 RUN pip install -r requirements.txt
 
 # Initialize dvc
-RUN dvc init --no-scm
+RUN dvc init --no-scm -f
 
 # Set AWS credentials
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
@@ -17,6 +24,8 @@ ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
 # Configuring remote dvc
 RUN dvc remote add -d storage s3://basicmlops/dvcstore
+
+RUN cat .dvc/config
 
 # pulling the trained model
 RUN dvc pull dvcfiles/trained_model.dvc
