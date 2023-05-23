@@ -1,0 +1,5 @@
+wdir: ../models
+outs:
+- md5: aebcbc34814e3cff48f2287e48caf167
+  size: 52690485
+  path: epoch=4-step=80.ckpt
