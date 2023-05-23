@@ -10,7 +10,7 @@ RUN pip install -r requirements.txt
 # Initialize dvc
 RUN dvc init --no-scm
 # Configuring remote dvc
-RUN dvc remote add -d s3://basicmlops/dvcstore
+RUN dvc remote add -d storage s3://basicmlops/dvcstore
 
 # pulling the trained model
 RUN dvc pull dvcfiles/trained_model.dvc
