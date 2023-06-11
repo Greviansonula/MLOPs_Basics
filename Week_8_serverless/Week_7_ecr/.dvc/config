@@ -1,5 +1,0 @@
-[core]
-    no_scm = True
-    remote = model-store
-['remote "model-store"']
-    url = s3://basicmlops/dvcstore/

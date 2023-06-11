@@ -1,5 +1,0 @@
-/epoch=4-step=80.ckpt
-/best-checkpoint.ckpt
-/best-checkpoint-v1.ckpt
-*.ckpt
-*.onnx
