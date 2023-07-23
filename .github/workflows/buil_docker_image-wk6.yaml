@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./week_6_github_actions
+        working-directory: ./Week_6_github_actions
     steps:
       - name: Checkout
         uses: actions/checkout@v2
