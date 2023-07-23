@@ -16,5 +16,5 @@ jobs:
       - name: Build container
         run: |
           docker network create data
-          docker build --tag inference:latest .
+          docker build --tag inference:latest --build-arg AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} .
           docker run -d -p 8000:8000 --network data --name inference_container inference:latest
