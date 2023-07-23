@@ -32,4 +32,4 @@ jobs:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: us-east-2
-          image: 708204279072.dkr.ecr.us-east-1.amazonaws.com/mlops-basics:latest
+          image: mlops-basics:latest
