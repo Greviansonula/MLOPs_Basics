@@ -14,7 +14,7 @@ class ColaONNXPredictor:
         self.processor = DataModule()
         self.labels = ["unacceptable", "acceptable"]
         
-    # @timing
+    @timing
     def predict(self, text):
         inference_sample = {"sentence": text}
         processed = self.processor.tokenize_data(inference_sample)
