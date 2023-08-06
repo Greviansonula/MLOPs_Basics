@@ -14,7 +14,7 @@ class ColaONNXPredictor:
         self.processor = DataModule()
         self.labels = ["unacceptable", "acceptable"]
         
-    @timing
+    # @timing
     def predict(self, text):
         inference_sample = {"sentence": text}
         processed = self.processor.tokenize_data(inference_sample)
@@ -26,6 +26,10 @@ class ColaONNXPredictor:
         
         ort_outs = self.ort_session.run(None, ort_inputs)
         scores = softmax(ort_outs[0])[0]
+
+        # Convert numpy.float32 to Python float
+        scores = scores.tolist()
+
         predictions = []
         for score, label in zip(scores, self.labels):
             predictions.append({"label": label, "score": score})
@@ -36,4 +40,4 @@ if __name__ == "__main__":
     predictor= ColaONNXPredictor("./models/model.onnx")
     sentences = ["The boy is sitting on a bench"] * 10
     for sentence in sentences:
-        predictor.predict(sentence)
+        print(predictor.predict(sentence))

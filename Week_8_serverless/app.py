@@ -10,4 +10,4 @@ async def home():
 
 @app.get("/predict")
 async def get_prediction(text: str):
-    return predictor.predict(text)
+    return predictor.predict({"sentence": "This is a samole mes"})
