@@ -30,7 +30,7 @@ class ColaONNXPredictor:
         for score, label in zip(scores, self.labels):
             predictions.append({"label": label, "score": score})
         return predictions
-        
+         
 if __name__ == "__main__":
     sentence = "The boy is sitting on a bench"
     predictor= ColaONNXPredictor("./models/model.onnx")
