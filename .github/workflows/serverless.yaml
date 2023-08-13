@@ -1,13 +1,13 @@
-name: Create Docker Container
+name: Dockerized MLOps Pipeline
 
 on: [push]
 
 jobs:
-  mlops-container:
+  dockerized-mlops-pipeline:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Week_7_ecr
+        working-directory: ./Week_8_serverless
     steps:
       - name: Checkout
         uses: actions/checkout@v2
