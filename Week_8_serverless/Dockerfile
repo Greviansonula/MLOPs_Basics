@@ -17,6 +17,12 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 RUN yum update -y && \
     yum upgrade -y && \
     yum -y install sqlite sqlite-devel gcc-c++
+
+# Install Git
+RUN yum install -y git
+# Set Git executable for DVC
+ENV GIT_PYTHON_GIT_EXECUTABLE /usr/bin/git
+
 COPY requirements_inference.txt requirements_inference.txt
 COPY  ./ ./
 ENV PYTHONPATH "${PYTHONPATH}:./"
