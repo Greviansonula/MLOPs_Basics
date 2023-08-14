@@ -16,7 +16,7 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 # Update and upgrade package repositories, install necessary packages
 RUN yum update -y && \
     yum upgrade -y && \
-    yum -y install sqlite sqlite-devel gcc-c++
+    yum -y install sqlite3 sqlite-devel gcc-c++
 
 # Install Git
 RUN yum install -y git
