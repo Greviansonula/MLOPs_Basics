@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.8
+FROM public.ecr.aws/lambda/python:3.11
 
 
 ARG AWS_ACCESS_KEY_ID
