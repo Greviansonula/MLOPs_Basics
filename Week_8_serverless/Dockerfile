@@ -15,6 +15,7 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 
 
 RUN yum update -y && \
+    yum upgrade -y && \
     yum install git -y && yum -y install gcc-c++
 COPY requirements_inference.txt requirements_inference.txt
 COPY  ./ ./
