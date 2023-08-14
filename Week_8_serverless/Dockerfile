@@ -22,7 +22,7 @@ ENV LC_ALL=C.UTF-8
 ENV LANCG=C.UTF-8
 RUN pip install 'dvc[s3]'
 # Configuring remote server in dvc
-RUN dvc init --no-scm
+RUN dvc init --no-scm -f
 RUN dvc remote add -d storage s3://basicmlops/dvcstore
 # pulling the trained model
 RUN dvc pull dvcfiles/trained_model.dvc
