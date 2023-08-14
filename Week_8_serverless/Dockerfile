@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.11
+FROM amazon/aws-lambda-python
 
 
 ARG AWS_ACCESS_KEY_ID
@@ -14,15 +14,13 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
 # Update and upgrade package repositories, install necessary packages
-RUN yum update -y && \
-    yum upgrade -y && \
-    yum -y install sqlite3 sqlite-devel gcc-c++
+RUN yum install git -y && yum -y install gcc-c++
 
-# Install Git
-RUN yum install -y git
+# # Install Git
+# RUN yum install -y git
 
-# Set Git executable for DVC
-ENV GIT_PYTHON_GIT_EXECUTABLE /usr/bin/git
+# # Set Git executable for DVC
+# ENV GIT_PYTHON_GIT_EXECUTABLE /usr/bin/git
 
 COPY requirements_inference.txt requirements_inference.txt
 RUN pip install -r requirements_inference.txt --no-cache-dir
