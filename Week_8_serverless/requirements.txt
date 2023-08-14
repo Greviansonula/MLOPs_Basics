@@ -14,5 +14,5 @@ dvc
 fastapi
 uvicorn
 onnxruntime
-onnx
+onnx  
 boto3
