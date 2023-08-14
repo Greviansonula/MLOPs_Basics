@@ -10,4 +10,3 @@ uvicorn
 dvc
 tokenizers
 transformers
-sqlite3
