@@ -1,4 +1,5 @@
-FROM amazon/aws-lambda-python
+FROM public.ecr.aws/lambda/python:3.8
+
 
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
