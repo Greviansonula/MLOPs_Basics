@@ -14,7 +14,12 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
 
-RUN yum install git -y && yum -y install gcc-c++
+RUN yum update -y && \
+    yum install git -y && \
+    amazon-linux-extras  enable epel && \
+    ym install -y epel-release && \
+    yum -y install sqlite sqlite-devel && \
+    yum -y install gcc-c++ 
 COPY requirements_inference.txt requirements_inference.txt
 COPY  ./ ./
 ENV PYTHONPATH "${PYTHONPATH}:./"
