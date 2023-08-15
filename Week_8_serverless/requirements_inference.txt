@@ -7,6 +7,6 @@ hydra_colorlog
 onnxruntime
 fastapi
 uvicorn
-dvc
+dvc==3.0.0
 tokenizers
 transformers
