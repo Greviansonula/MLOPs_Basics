@@ -11,7 +11,7 @@ def lambda_handler(evenv, context):
     if "resource" in event.keys():
         body = event["body"]
         body = json.loads(body)
-        print(f"Go the input: {body["sentence"]}")
+        print(f"Go the input: {body['sentence']}")
         response = inferencing_instance.predict(body["sentence"])
         return {
             "statusCode": 200,
