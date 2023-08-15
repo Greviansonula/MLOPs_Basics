@@ -14,16 +14,13 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
 # Update and upgrade package repositories, install necessary packages
-RUN yum install git -y && yum -y install gcc-c++ 
+RUN yum install git -y && yum -y install gcc-c++ make curl
 
-# Download, compile, and install SQLite 3.8.3 from source
-RUN cd /opt && \
-    wget https://www.sqlite.org/2019/sqlite-autoconf-3280000.tar.gz && \
+# Download and build SQLite from source using curl
+RUN curl -LO https://www.sqlite.org/2019/sqlite-autoconf-3280000.tar.gz && \
     tar -xzf sqlite-autoconf-3280000.tar.gz && \
     cd sqlite-autoconf-3280000 && \
-    ./configure && \
-    make && \
-    make install
+    ./configure && make && make install
 
 
 COPY requirements_inference.txt requirements_inference.txt
@@ -37,7 +34,6 @@ ENV LANCG=C.UTF-8
 RUN pip install 'dvc[s3]'
 
 # # Configuring remote server in dvc
-RUN yum install sqlite
 RUN dvc init --no-scm -f
 RUN dvc remote add -d storage s3://basicmlops/dvcstore
 
