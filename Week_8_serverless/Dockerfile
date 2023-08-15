@@ -16,11 +16,15 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 # Update and upgrade package repositories, install necessary packages
 RUN yum install git -y && yum -y install gcc-c++ 
 
-# # Install Git
-# RUN yum install -y git
+# Download, compile, and install SQLite 3.8.3 from source
+RUN cd /opt && \
+    wget https://www.sqlite.org/2019/sqlite-autoconf-3280000.tar.gz && \
+    tar -xzf sqlite-autoconf-3280000.tar.gz && \
+    cd sqlite-autoconf-3280000 && \
+    ./configure && \
+    make && \
+    make install
 
-# # Set Git executable for DVC
-# ENV GIT_PYTHON_GIT_EXECUTABLE /usr/bin/git
 
 COPY requirements_inference.txt requirements_inference.txt
 RUN pip install -r requirements_inference.txt --no-cache-dir
