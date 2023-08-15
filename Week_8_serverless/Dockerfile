@@ -23,7 +23,7 @@ RUN curl -LO https://www.sqlite.org/2019/sqlite-autoconf-3280000.tar.gz && \
     ./configure && make && make install
 
 # Recompile Python with LD_RUN_PATH environment variable
-RUN cd /opt/Python-3.10 && \
+RUN cd /opt/python3.10 && \
     LD_RUN_PATH=/usr/local/lib ./configure && \
     LD_RUN_PATH=/usr/local/lib make && \
     LD_RUN_PATH=/usr/local/lib make altinstall
