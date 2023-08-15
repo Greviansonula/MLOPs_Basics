@@ -14,7 +14,7 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
 # Update and upgrade package repositories, install necessary packages
-RUN yum install git -y && yum -y install gcc-c++
+RUN yum install git -y && yum -y install gcc-c++ 
 
 # # Install Git
 # RUN yum install -y git
