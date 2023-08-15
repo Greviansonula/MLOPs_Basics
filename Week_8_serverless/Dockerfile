@@ -22,6 +22,12 @@ RUN curl -LO https://www.sqlite.org/2019/sqlite-autoconf-3280000.tar.gz && \
     cd sqlite-autoconf-3280000 && \
     ./configure && make && make install
 
+# Recompile Python with LD_RUN_PATH environment variable
+RUN cd /opt/Python-3.10 && \
+    LD_RUN_PATH=/usr/local/lib ./configure && \
+    LD_RUN_PATH=/usr/local/lib make && \
+    LD_RUN_PATH=/usr/local/lib make altinstall
+
 
 COPY requirements_inference.txt requirements_inference.txt
 RUN pip install -r requirements_inference.txt --no-cache-dir
