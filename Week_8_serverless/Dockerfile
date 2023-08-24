@@ -31,6 +31,7 @@ RUN yum install git -y && yum -y install gcc-c++ make curl tar
 
 
 COPY requirements_inference.txt requirements_inference.txt
+RUN pip install --upgrade pip
 RUN pip install -r requirements_inference.txt --no-cache-dir
 
 COPY  ./ ./
