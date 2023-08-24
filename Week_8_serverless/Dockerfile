@@ -16,6 +16,7 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 
 # Update and upgrade package repositories, install necessary packages
 RUN yum install git -y && yum -y install gcc-c++ make curl tar
+RUN apt-get update && apt-get install -y sqlite3-dev
 
 # Download and build SQLite from source using curl
 # RUN curl -LO https://www.sqlite.org/2019/sqlite-autoconf-3280000.tar.gz && \
