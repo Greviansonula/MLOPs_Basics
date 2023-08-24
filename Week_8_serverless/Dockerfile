@@ -1,6 +1,7 @@
 FROM public.ecr.aws/lambda/python:3.10
 
 
+
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
 ARG MODEL_DIR=./models
@@ -46,7 +47,7 @@ RUN dvc remote add -d storage s3://basicmlops/dvcstore
 # # pulling the trained model
 RUN dvc pull dvcfiles/trained_model.dvc
 
-RUN ls
+RUN ls 
 RUN python lambda_handler.py
 RUN chmod -R 0755 $MODEL_DIR
 
