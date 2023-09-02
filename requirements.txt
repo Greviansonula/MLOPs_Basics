@@ -6,7 +6,7 @@ tensorboard
 wandb
 torchmetrics
 matplotlib
-seaborn
+seaborn 
 hydra_colorlog
 dvc
 dvc_gdrive
