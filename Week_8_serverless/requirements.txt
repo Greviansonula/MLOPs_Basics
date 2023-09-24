@@ -16,3 +16,4 @@ uvicorn
 onnxruntime
 onnx  
 boto3
+pysqlite3-binary
