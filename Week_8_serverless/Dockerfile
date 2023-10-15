@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.9.2020.12.01.12
+FROM public.ecr.aws/lambda/python:3.9
 
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
