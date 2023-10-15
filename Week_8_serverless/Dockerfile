@@ -14,13 +14,13 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 # RUN yum install git -y && yum -y install gcc-c++
 COPY requirements_inference.txt requirements_inference.txt
 RUN pip install -r requirements_inference.txt --no-cache-dir
-COPY ./ /Week_8_serverless/
-ENV PYTHONPATH "${PYTHONPATH}:/Week_8_serverless"
+COPY ./ ./
+ENV PYTHONPATH "${PYTHONPATH}:./"
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 RUN pip install "dvc[s3]"
 # configuring remote server in dvc
-RUN dvc init --no-scm -f
+# RUN dvc init --no-scm -f
 RUN dvc remote add -d model-store s3://basicmlops/dvcstore
 
 # pulling the trained model
