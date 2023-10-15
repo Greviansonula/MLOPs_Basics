@@ -14,8 +14,8 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 # RUN yum install git -y && yum -y install gcc-c++
 COPY requirements_inference.txt requirements_inference.txt
 RUN pip install -r requirements_inference.txt --no-cache-dir
-COPY ./ ./
-ENV PYTHONPATH "${PYTHONPATH}:./"
+COPY ./ /Week_8_serverless/
+ENV PYTHONPATH "${PYTHONPATH}:/Week_8_serverless"
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 RUN pip install "dvc[s3]"
