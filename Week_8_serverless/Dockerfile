@@ -11,7 +11,7 @@ ENV TRANSFORMERS_CACHE=$MODEL_DIR \
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
-# RUN yum install git -y && yum -y install gcc-c++
+RUN yum install git -y && yum -y install gcc-c++
 COPY requirements_inference.txt requirements_inference.txt
 RUN pip install -r requirements_inference.txt --no-cache-dir
 COPY ./ ./
@@ -20,7 +20,7 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 RUN pip install "dvc[s3]"
 # configuring remote server in dvc
-# RUN dvc init --no-scm -f
+RUN dvc init --no-scm -f
 RUN dvc remote add -d model-store s3://basicmlops/dvcstore
 
 # pulling the trained model
@@ -28,4 +28,4 @@ RUN dvc pull dvcfiles/trained_model.dvc
 
 RUN python lambda_handler.py
 RUN chmod -R 0755 $MODEL_DIR
-CMD [ "lambda_handler.lambda_handler.py"] 
+CMD [ "lambda_handler.lambda_handler"] 
