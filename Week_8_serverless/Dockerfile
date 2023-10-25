@@ -15,6 +15,7 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 COPY requirements_inference.txt requirements_inference.txt
 RUN pip install -r requirements_inference.txt --no-cache-dir
 COPY ./ ./
+COPY ./ $PATH
 ENV PYTHONPATH "${PYTHONPATH}:./"
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
