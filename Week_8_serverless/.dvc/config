@@ -1,5 +1,7 @@
 [core]
     no_scm = True
-    remote = storage
+    remote = model-store
 ['remote "storage"']
+    url = s3://basicmlops/dvcstore
+['remote "model-store"']
     url = s3://basicmlops/dvcstore
