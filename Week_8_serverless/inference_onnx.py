@@ -7,6 +7,8 @@ from scipy.special import softmax
 
 from data import DataModule
 from utils import timing
+from logger import CustomLogger
+logger = CustomLogger(__name__).getLogger()
 
 class ColaONNXPredictor:
     def __init__(self, model_path):
@@ -16,7 +18,7 @@ class ColaONNXPredictor:
         
     @timing
     def predict(self, text):
-        print("entering predict")
+        logger.info("Starting prediction service")
         inference_sample = {"sentence": text}
         processed = self.processor.tokenize_data(inference_sample)
         
@@ -30,6 +32,7 @@ class ColaONNXPredictor:
         predictions = []
         for score, label in zip(scores, self.labels):
             predictions.append({"label": label, "score": score})
+        logger.info('Prediction service complete')
         return predictions
          
 if __name__ == "__main__":

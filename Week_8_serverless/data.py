@@ -1,10 +1,13 @@
 import torch
 import datasets
 import pytorch_lightning as pl
+from logger import CustomLogger
 
 
 from datasets import load_dataset
 from transformers import AutoTokenizer
+
+logger = CustomLogger(__name__).getLogger()
 
 class DataModule(pl.LightningDataModule):
     def __init__(
@@ -21,11 +24,14 @@ class DataModule(pl.LightningDataModule):
         print("init data")
         
     def prepare_data(self):
+        logger.info("Starting data preparation")
         cola_dataset = load_dataset("glue", "cola")
         self.train_data = cola_dataset['train'].shuffle().select(range(500))
         self.val_data = cola_dataset['validation'].shuffle().select(range(100))
+        logger.info("Data preparation complete")
         
     def tokenize_data(self, example):
+        logger.info("Starting tokenizing data")
         tokenized_input = self.tokenizer(
             example['sentence'],
             truncation=True,
@@ -35,6 +41,7 @@ class DataModule(pl.LightningDataModule):
         tokenized_input['sentence'] = example['sentence']
         # Save the tokenizer
         self.tokenizer.save_pretrained("./tokenizer/")
+        logger.info("Done tokenizing data")
 
 
         return tokenized_input
