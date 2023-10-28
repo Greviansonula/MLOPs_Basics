@@ -3,7 +3,7 @@ from inference_onnx import ColaONNXPredictor
 
 inferencing_instance = ColaONNXPredictor("./models/model.onnx")
 
-def lambda_handler(evenv, context):
+def lambda_handler(event, context):
     """
     Lambda function handler for predicting linguistic acceptability of a given sentence
     """
