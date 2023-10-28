@@ -24,7 +24,8 @@ RUN dvc init --no-scm -f
 RUN dvc remote add -d model-store s3://basicmlops/dvcstore
 
 # pulling the trained model
-RUN dvc pull dvcfiles/trained_model.dvc
+# RUN dvc pull dvcfiles/trained_model.dvc
+RUN dvc pull dvcfiles/*
 
 RUN python lambda_handler.py
 RUN chmod -R 0755 $MODEL_DIR
