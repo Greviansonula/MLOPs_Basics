@@ -1,3 +1,4 @@
+wdir: ../tokenizer
 outs:
 - md5: 29ba428df177361130afa82cf0883098
   size: 125
