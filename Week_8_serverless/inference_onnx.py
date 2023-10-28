@@ -16,6 +16,7 @@ class ColaONNXPredictor:
         
     @timing
     def predict(self, text):
+        print("entering predict")
         inference_sample = {"sentence": text}
         processed = self.processor.tokenize_data(inference_sample)
         
