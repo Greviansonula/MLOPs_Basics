@@ -14,7 +14,8 @@ class DataModule(pl.LightningDataModule):
         self, 
         model_name="google/bert_uncased_L-2_H-128_A-2", 
         batch_size=64,
-        max_length=128,
+        
+        max_length=512,
         ):
         super().__init__()
         
