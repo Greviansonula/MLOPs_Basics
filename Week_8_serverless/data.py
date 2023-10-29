@@ -27,8 +27,8 @@ class DataModule(pl.LightningDataModule):
     def prepare_data(self):
         logger.info("Starting data preparation")
         cola_dataset = load_dataset("glue", "cola")
-        self.train_data = cola_dataset['train'] #.shuffle().select(range(500))
-        self.val_data = cola_dataset['validation'] #.shuffle().select(range(100))
+        self.train_data = cola_dataset['train'].shuffle().select(range(500))
+        self.val_data = cola_dataset['validation'].shuffle().select(range(100))
         logger.info("Data preparation complete")
         
     def tokenize_data(self, example):
