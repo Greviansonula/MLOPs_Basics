@@ -19,8 +19,7 @@ class DataModule(pl.LightningDataModule):
         super().__init__()
         
         self.batch_size = batch_size
-        # self.toke
-        # nizer = AutoTokenizer.from_pretrained(model_name)
+        # self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.tokenizer = AutoTokenizer.from_pretrained("./tokenizer/")
         print("init data")
         
@@ -50,6 +49,7 @@ class DataModule(pl.LightningDataModule):
     def setup(self, stage=None):
         # set up only relevant datasets when state is specified
         if stage == "fit" or stage is None:
+            logger.info("Fitting model to data")
             self.train_data = self.train_data.map(self.tokenize_data, batched=True)
             self.train_data.set_format(
                 type="torch", columns=["sentence", "input_ids", "attention_mask", "label"]
@@ -61,11 +61,13 @@ class DataModule(pl.LightningDataModule):
             )
             
     def train_dataloader(self):
+        logger.info("Loading training data")
         return torch.utils.data.DataLoader(
             self.train_data, batch_size=self.batch_size, shuffle=True, num_workers=16
         )
         
     def val_dataloader(self):
+        logger.info("Loading validation data")
         return torch.utils.data.DataLoader(
             self.train_data, batch_size=self.batch_size, shuffle=True, num_workers=16
         )
