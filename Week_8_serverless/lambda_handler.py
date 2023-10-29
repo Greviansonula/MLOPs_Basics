@@ -20,6 +20,7 @@ def lambda_handler(event, context):
             body = event["body"]
             body = json.loads(body)
             print(f"Go the input: {body['sentence']}")
+        
     #         response = inferencing_instance.predict(body["sentence"])
     #         return {
     #             "statusCode": 200,
@@ -29,6 +30,6 @@ def lambda_handler(event, context):
     #     else:
     #         return inferencing_instance.predict(event["sentence"])
     #     logger.info("Lambda function completed successfully")
-    # except Exception as e:
-    #     logger.error(f"An error occurred: {str(e)}")
-    #     raise
+    except Exception as e:
+        logger.error(f"An error occurred: {str(e)}")
+        raise
