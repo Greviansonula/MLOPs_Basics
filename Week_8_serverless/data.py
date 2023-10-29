@@ -19,6 +19,7 @@ class DataModule(pl.LightningDataModule):
         super().__init__()
         
         self.batch_size = batch_size
+        self.max_length = max_length
         # self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.tokenizer = AutoTokenizer.from_pretrained("./tokenizer/")
         print("init data")
@@ -26,25 +27,24 @@ class DataModule(pl.LightningDataModule):
     def prepare_data(self):
         logger.info("Starting data preparation")
         cola_dataset = load_dataset("glue", "cola")
-        self.train_data = cola_dataset['train'].shuffle().select(range(500))
-        self.val_data = cola_dataset['validation'].shuffle().select(range(100))
+        self.train_data = cola_dataset['train'] #.shuffle().select(range(500))
+        self.val_data = cola_dataset['validation'] #.shuffle().select(range(100))
         logger.info("Data preparation complete")
         
     def tokenize_data(self, example):
         logger.info("Starting tokenizing data")
-        tokenized_input = self.tokenizer(
+        return self.tokenizer(
             example['sentence'],
             truncation=True,
             padding='max_length',
-            max_length=512,
+            max_length=self.max_length,
         )
-        tokenized_input['sentence'] = example['sentence']
+        # tokenized_input['sentence'] = example['sentence']
         # Save the tokenizer
-        self.tokenizer.save_pretrained("./tokenizer/")
-        logger.info("Done tokenizing data")
+        # self.tokenizer.save_pretrained("./tokenizer/")
+        # logger.info("Done tokenizing data")
 
 
-        return tokenized_input
         
     def setup(self, stage=None):
         # set up only relevant datasets when state is specified
