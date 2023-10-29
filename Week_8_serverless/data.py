@@ -19,8 +19,9 @@ class DataModule(pl.LightningDataModule):
         super().__init__()
         
         self.batch_size = batch_size
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        # self.tokenizer = AutoTokenizer.from_pretrained("./tokenizer/")
+        # self.toke
+        # nizer = AutoTokenizer.from_pretrained(model_name)
+        self.tokenizer = AutoTokenizer.from_pretrained("./tokenizer/")
         print("init data")
         
     def prepare_data(self):
