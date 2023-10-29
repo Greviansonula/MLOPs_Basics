@@ -29,4 +29,4 @@ RUN dvc pull dvcfiles/*
 
 RUN python lambda_handler.py
 RUN chmod -R 0755 $MODEL_DIR
-CMD ["/usr/local/bin/python", "./lambda_handler.py"] 
+CMD ["lambda_handler.lambda_handler"] 

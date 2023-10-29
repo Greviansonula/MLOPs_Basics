@@ -23,7 +23,7 @@ class DataModule(pl.LightningDataModule):
         self.max_length = max_length
         # self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.tokenizer = AutoTokenizer.from_pretrained("./tokenizer/")
-        print("init data")
+        
         
     def prepare_data(self):
         logger.info("Starting data preparation")
