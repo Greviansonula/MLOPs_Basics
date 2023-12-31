@@ -8,11 +8,11 @@ torchmetrics
 matplotlib
 seaborn 
 hydra_colorlog
-dvc
+dvc==3.37.0
 dvc_gdrive
 dvc_s3
 fastapi
 uvicorn
 onnxruntime
 onnx
-boto3
+boto3==1.34.11
