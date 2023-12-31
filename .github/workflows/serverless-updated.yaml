@@ -19,6 +19,14 @@ jobs:
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - name: Install DVC
+        run: pip install dvc
+
+      - name: Pull DVC Files
+        run: |
+          dvc pull dvcfiles/trained_model.dvc
+          dvc pull dvcfiles/*  # If you have additional DVC-managed files
+          
       - name: Build container
         run: | 
           docker build --build-arg AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }} \

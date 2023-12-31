@@ -33,9 +33,13 @@ RUN pip install "dvc[s3]"
 RUN dvc init --no-scm -f
 RUN dvc remote add -d model-store s3://basicmlops/dvcstore
 
-# pulling the trained model
-RUN dvc pull dvcfiles/trained_model.dvc
-RUN dvc pull dvcfiles/*
+# # pulling the trained model
+# RUN dvc pull dvcfiles/trained_model.dvc
+# RUN dvc pull dvcfiles/*
+
+# COPY pre-pulled data and models (replace with actual file paths)
+COPY dvcfiles/trained_model.dvc dvcfiles/trained_model.dvc
+COPY dvcfiles/* dvcfiles/*
 
 RUN python lambda_handler.py
 RUN chmod -R 0755 $MODEL_DIR
