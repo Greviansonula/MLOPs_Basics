@@ -38,8 +38,8 @@ RUN dvc remote add -d model-store s3://basicmlops/dvcstore
 # RUN dvc pull dvcfiles/*
 
 # COPY pre-pulled data and models (replace with actual file paths)
-COPY dvcfiles/trained_model.dvc dvcfiles/trained_model.dvc
-COPY dvcfiles/* dvcfiles/*
+# COPY dvcfiles/trained_model.dvc dvcfiles/trained_model.dvc
+# COPY dvcfiles/* dvcfiles/*
 
 RUN python lambda_handler.py
 RUN chmod -R 0755 $MODEL_DIR
