@@ -14,6 +14,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Exclude sqlite3.so
+!libsqlite3.so
+
 # Distribution / packaging
 .Python
 build/
