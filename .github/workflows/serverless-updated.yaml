@@ -24,6 +24,8 @@ jobs:
 
       - name: Pull DVC Files
         run: |
+          dvc init --no-scm -f
+          dvc remote add -d model-store s3://basicmlops/dvcstore
           dvc pull dvcfiles/trained_model.dvc
           dvc pull dvcfiles/*  # If you have additional DVC-managed files
 
