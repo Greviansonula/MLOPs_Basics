@@ -24,7 +24,7 @@ jobs:
         run: |
           docker run --rm -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
                      -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
-                     amazon/aws-lambda-python:3.9 \
+                     python:3.9 \
                      sh -c "yum install -y git && pip install 'dvc[s3]' && \
                             dvc init --no-scm -f && \
                             dvc remote add -d model-store s3://basicmlops/dvcstore && \
