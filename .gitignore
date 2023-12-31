@@ -16,6 +16,7 @@ __pycache__/
 
 # Exclude sqlite3.so
 !libsqlite3.so
+!/Week_8_serverless/architecture/sqlite_layer/sqlite/lib/libsqlite3.so
 
 # Distribution / packaging
 .Python
