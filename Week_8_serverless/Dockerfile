@@ -2,6 +2,10 @@ FROM amazon/aws-lambda-python:3.9
 
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
+
+# Install system dependencies and tools
+RUN yum update -y && yum install -y sqlite-devel gcc
+
 ARG MODEL_DIR=./models
 RUN mkdir $MODEL_DIR
 
