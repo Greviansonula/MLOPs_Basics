@@ -5,9 +5,13 @@ ARG AWS_SECRET_ACCESS_KEY
 
 # Install system dependencies and tools
 RUN yum update -y && yum install -y sqlite-devel gcc
+RUN yum install -y libreadline zlib openssl
+
 
 ARG MODEL_DIR=./models
 RUN mkdir $MODEL_DIR
+
+ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 
 ENV TRANSFORMERS_CACHE=$MODEL_DIR \
     TRANSFORMERS_VERBOSITY=error
@@ -20,7 +24,7 @@ COPY requirements_inference.txt requirements_inference.txt
 RUN pip install -r requirements_inference.txt --no-cache-dir
 COPY ./ ./
 # Copy SQLite files into the image
-COPY /architecture/sqlite_layer/sqlite/lib/libsqlite3.so ./
+COPY /architecture/sqlite_layer/sqlite/lib/libsqlite3.so /usr/local/lib
 ENV PYTHONPATH "${PYTHONPATH}:./"
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
